@@ -1,0 +1,24 @@
+{
+  "name": "crm-system-mean_stack",
+  "version": "1.0.0",
+  "description": "fullstack project - CRM system with Mongo, Express, Angular and NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "server": "nodemon index"
+  },
+  "keywords": [
+    "mongo",
+    "express",
+    "angular",
+    "nodejs"
+  ],
+  "author": "Dmitriy Skachok",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1"
+  }
+}

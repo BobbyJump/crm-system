@@ -32,6 +32,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       } else if(params['accessDenied']){
         // Sign up first
         MaterialService.toast('Sign up to the system first')
+      } else if (params['sessionFailed']){
+        MaterialService.toast('Session expaired. Please, log in again.')
       }
     })
   }

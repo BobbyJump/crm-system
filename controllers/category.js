@@ -6,7 +6,7 @@ const Position = require('../models/Position')
 module.exports.getAll = async function(request, response){
     try{
         const categories = await Category.find({user: request.user.id})
-        response.status(200).json(categories)
+            response.status(200).json(categories)
     } catch(e){
         errorHandler(response, e)
     }

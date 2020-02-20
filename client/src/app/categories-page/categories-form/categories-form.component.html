@@ -5,7 +5,11 @@
         {{isNew ? 'Add ' : 'Edit '}} category
     </h4>
     <span>
-        <button class="btn btn-small red">
+        <button
+            *ngIf="!isNew"
+            (click)="deleteCategory()"
+            class="btn btn-small red"        
+        >
           <i class="material-icons">delete</i>
         </button>
       </span>

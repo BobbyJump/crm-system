@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MaterialService } from 'src/app/shared/classes/material.service';
 import { Category } from 'src/app/shared/interfaces';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-categories-form',
@@ -23,7 +24,8 @@ export class CategoriesFormComponent implements OnInit {
   category: Category
 
   constructor(private route: ActivatedRoute,
-              private categoriesService: CategoriesService){
+              private categoriesService: CategoriesService,
+              private router: Router){
 
   }
 
@@ -65,6 +67,19 @@ export class CategoriesFormComponent implements OnInit {
 
   triggerClick(){
     this.inputRef.nativeElement.click()
+  }
+
+  deleteCategory(){
+    const decision = window.confirm(`Are you sure that you want to delete category "${this.category.name}"`)
+
+    if(decision){
+      this.categoriesService.delete(this.category._id)
+        .subscribe(
+          response => MaterialService.toast(response.message),
+          error => MaterialService.toast(error.error.message),
+          () => this.router.navigate(['/categories'])
+        )
+    }
   }
 
   onFileUpload(event: any){

@@ -2,7 +2,10 @@
     <div class="col s12">
         <div class="page-subtitle">
             <h4>Available tickets:</h4>
-            <button class="waves-effect waves-light btn grey darken-1 btn-small modal-trigger" data-target="create-modal">
+            <button 
+                class="waves-effect waves-light btn grey darken-1 btn-small"
+                (click)="onAddPosition()"
+            >
                 Add new ticket
             </button>
         </div>
@@ -15,6 +18,7 @@
                 <a 
                     *ngFor="let position of positions"
                     class="collection-item collection-item-icon"
+                    (click)="onSelectPosition(position)"
                 >
                     <span>
                         {{position.name}} <strong>{{position.cost}} UAH</strong>
@@ -36,20 +40,30 @@
     </div>
 </div>
 
-<div id="create-modal" class="modal">
+<div class="modal" #modal>
     <div class="modal-content">
-        <h4 class="mb1">Добавить позицию</h4>
+        <h4 class="mb1">Add product</h4>
         <div class="input-field">
             <input id="pos-name" type="text" required>
-            <label for="pos-name">Название</label>
+            <label for="pos-name">Title</label>
         </div>
         <div class="input-field">
             <input id="pos-cost" type="text" required>
-            <label for="pos-cost">Цена</label>
+            <label for="pos-cost">Price</label>
         </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action waves-effect waves-black btn-flat">Отмена</a>
-        <button class="modal-action btn waves-effect">Сохранить</button>
+        <button 
+            (click)="onCancel()"
+            type="button"
+            class="modal-action waves-effect waves-black btn-flat"
+        >
+            Cancel
+        </button>
+        <button 
+            class="modal-action btn waves-effect"
+        >
+            Save
+        </button>
     </div>
 </div>

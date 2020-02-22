@@ -1,3 +1,4 @@
 node_modules
 build
 config/keys.dev.js
+client/etc

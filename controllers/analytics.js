@@ -63,8 +63,27 @@ module.exports.overview = async function(request, response){
     }
 }
 
-module.exports.analytics = function(request, response){
-    
+module.exports.analytics = async function(request, response){
+    try{
+        const allOrders = await Order.find({user: request.user.id}).sort({date: 1})
+        const ordersMap = getOrdersMap(allOrders)
+
+        // Calculating of average check
+        const average = +(calculatePrice(allOrders) / Object.keys(ordersMap).length).toFixed(2)
+
+        // Graphs
+        const chart = Object.keys(ordersMap).map(label => {
+            // example: label == 02.22.2020
+            const revenue = calculatePrice(ordersMap[label])
+            const order = ordersMap[label].length
+
+            return {label, order, revenue}
+        })
+
+        response.status(200).json({average, chart})
+    } catch(e){
+        errorHandler(response, e)
+    }
 }
 
 function getOrdersMap(orders = []){
